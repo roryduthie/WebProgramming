@@ -32,7 +32,7 @@ public class FaultModel {
 
 		PreparedStatement pmst = null;
 		Statement stmt = null;
-		String sqlQuery = "select summary,idfault from fault";
+		String sqlQuery = "select summary,idfault,details from fault";
 		System.out.println("Faults Query " + sqlQuery);
 		try {
 			try {
@@ -61,6 +61,7 @@ public class FaultModel {
 				ps = new FaultsStore();
 				ps.setFaultid(rs.getString("idfault"));
 				ps.setFaultSummary(rs.getString("summary"));
+				ps.setFaultDetails(rs.getString("details"));
 				psl.add(ps);
 			}
 		} catch (Exception ex) {

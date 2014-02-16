@@ -32,9 +32,24 @@
     	
     	if(rs.next())
     	{
+    		
     		//if((username.equals("username") && password.equals("password"))){
-    			String userName=rs.getString("name")+ ""+rs.getString("passwrd");
+    			String userName=rs.getString("name")+ ""; 
+    			String pass = rs.getString("passwrd")+ "";
+    			String perms = rs.getString("permission");
     			session.setAttribute("username", username);
+    			 
+    			System.out.println(perms);
+    			
+    			if(perms.equals("admin"))
+    			{
+    				System.out.println("You Have all the permissions");
+    			}
+    			else
+    			{
+    				System.out.println("nah");
+    			}
+    			
     			response.sendRedirect("/Faulty/Faults");
     		//}
     		
@@ -47,6 +62,8 @@
     catch(Exception e){
     	
     }
+    
+    con.close();
 	
 	
 	

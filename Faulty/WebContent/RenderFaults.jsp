@@ -15,6 +15,8 @@
 <%
 String a=session.getAttribute("username").toString();
 out.println("Hello  "+a);
+
+
 System.out.println("In render");
 List<FaultsStore> lFaults = (List<FaultsStore>)request.getAttribute("Faults");
 if (lFaults==null){
@@ -34,7 +36,7 @@ while (iterator.hasNext()){
 	FaultsStore md = (FaultsStore)iterator.next();
 
 	%>
-		<a href="/Faulty/Faults/<%=md.getFaultid() %>" ><%=md.getFaultSummary() %></a><br/><%
+		<a href="/Faulty/FaultDetails.jsp?faultId=<%=md.getFaultid() %>" ><%=md.getFaultSummary() %></a><br/><%
 
 						}
 }
