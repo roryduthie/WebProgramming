@@ -44,5 +44,7 @@ while (iterator.hasNext()){
 %>
 		<a href="Form.jsp"> Add A Fault</a>
 		<a href="Logout.jsp">Logout</a>
+		<br><br>
+		<a href="AdminSelect">Make Admin</a>
 </body>
 </html>

@@ -15,6 +15,9 @@
 	<input type="submit" name="login" value="Login">
 	</form>
 	
+	<a href="Register.jsp"> Register As Reporter Here!</a>
+	<a href="DeveloperRegister.jsp"> Register As A Developer Here!</a>
+	
 	
 </body>
 </html>

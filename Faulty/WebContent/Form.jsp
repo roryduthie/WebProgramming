@@ -23,10 +23,10 @@
 		
 		<select name="severity">
 			<option value="" disabled="disabled" selected="selected">Severity Of Fault</option>
-  			<option value="crash">Crash: Loss of data or absent feature</option>
-  			<option value="noWorkAround">Feature broken: No Workaround available</option>
-  			<option value="workAround"> Feature broken: Workaround available</option>
-  			<option value="works">Feature Works: Could be improved</option>
+  			<option value="Crash: Loss of data or absent feature">Crash: Loss of data or absent feature</option>
+  			<option value="Feature broken: No Workaround available">Feature broken: No Workaround available</option>
+  			<option value="Feature broken: Workaround available"> Feature broken: Workaround available</option>
+  			<option value="Feature Works: Could be improved">Feature Works: Could be improved</option>
 		</select>
 		
 		<br><br>
