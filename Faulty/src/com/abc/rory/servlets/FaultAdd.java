@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LoginCheck
+ * Servlet implementation class FaultAdd
  */
-@WebServlet("/LoginCheck")
-public class LoginCheck extends HttpServlet {
+@WebServlet("/FaultAdd")
+public class FaultAdd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginCheck() {
+    public FaultAdd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,17 +34,14 @@ public class LoginCheck extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-System.out.println("I started");
-        
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs= null;
 
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		//String username = request.getParameter("username");
+		//String password = request.getParameter("password");
 		
-		String stmt = "SELECT * FROM author WHERE name=? and passwrd=?";
+		String stmt = "INSERT into ";
     	
     	
         try {
@@ -97,9 +93,12 @@ System.out.println("I started");
 			e.printStackTrace();
 		}
 	}
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    // same logic
-    
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 	}
+
 }

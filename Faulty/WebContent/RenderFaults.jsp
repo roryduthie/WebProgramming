@@ -14,6 +14,7 @@
 <h1>Faults</h1>
 <%
 String a=session.getAttribute("username").toString();
+String b=session.getAttribute("id").toString();
 out.println("Hello  "+a);
 
 
@@ -36,7 +37,7 @@ while (iterator.hasNext()){
 	FaultsStore md = (FaultsStore)iterator.next();
 
 	%>
-		<a href="/Faulty/FaultDetails.jsp?faultId=<%=md.getFaultid() %>" ><%=md.getFaultSummary() %></a><br/><%
+		<a href="FaultDetails?faultId=<%=md.getFaultid() %>" ><%=md.getFaultSummary() %></a><br/><%
 
 						}
 }

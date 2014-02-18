@@ -7,13 +7,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form>
+	<form action="FaultAdd" method="get">
 		<p>Summary:</p>
 		 <input type="text" name="summary" size="100"><br>
 		<p>Details:<p> 
 		<textarea rows="10" cols="74"></textarea><br><br>
-		<input type="submit" name="submit" value="submit">
 		
+		
+		<select>
+			<option value="" disabled="disabled" selected="selected">Severity Of Fault</option>
+  			<option value="crash">Crash: Loss of data or absent feature</option>
+  			<option value="noWorkAround">Feature broken: No Workaround available</option>
+  			<option value="workAround"> Feature broken: Workaround available</option>
+  			<option value="works">Feature Works: Could be improved</option>
+		</select>
+		
+		<br><br>
+		<input type="submit" name="submit" value="submit">
 	</form>
 </body>
 </html>

@@ -13,5 +13,6 @@
     session.invalidate();
 	%>
 	<h1>Logout was done successfully.</h1>
+	<a href = "Login.jsp" > Log Back In! </a>
 </body>
 </html>

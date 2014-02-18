@@ -9,10 +9,9 @@
 <title>Fault Details</title>
 </head>
 <body>
-	<h1>This will hold all the fault details</h1>
+	<h1>Full Fault Details</h1>
 	
-<% 
-
-%>
+     <p><%=request.getAttribute("faultSummary")%> <%=request.getAttribute("faultDetails") %> </p>
+	  
 </body>
 </html>

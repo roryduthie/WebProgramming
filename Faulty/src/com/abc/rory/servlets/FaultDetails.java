@@ -16,16 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LoginCheck
+ * Servlet implementation class FaultDetails
  */
-@WebServlet("/LoginCheck")
-public class LoginCheck extends HttpServlet {
+@WebServlet("/FaultDetails")
+public class FaultDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginCheck() {
+    public FaultDetails() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,16 +36,13 @@ public class LoginCheck extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-System.out.println("I started");
-        
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs= null;
 
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String faultId = request.getParameter("faultId");
 		
-		String stmt = "SELECT * FROM author WHERE name=? and passwrd=?";
+		String stmt = "SELECT * FROM fault WHERE idfault=?";
     	
     	
         try {
@@ -53,38 +50,29 @@ System.out.println("I started");
         	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Faultdb","root","Cl1m8t3;");
             //Statement stmt = con.createStatement();
             ps = con.prepareStatement(stmt);
-        	ps.setString(1, username);
-        	ps.setString(2, password);
-        	//ps.getString(3, id);
+        	ps.setString(1, faultId);
+        	
+        	System.out.println(faultId);
+        	
         	
             rs=ps.executeQuery();
             
             if (rs.next()) {
                 // redirect to error page
-            	HttpSession session = request.getSession(true); 
-                session.setAttribute("username", rs.getString("name"));
-                session.setAttribute("id", rs.getInt("idauthor"));
-                String perms = rs.getString("permission");
-               
+            	String faultDetails = rs.getString("details");
+            	String faultSummary = rs.getString("summary");
                 
-                if(perms.equals("admin"))
-    			{
-    				System.out.println("You Have all the permissions");
-    			}
-    			else
-    			{
-    				System.out.println("nah");
-    			}
-                
-                response.sendRedirect("/Faulty/Faults"); 
+            	
+            	request.setAttribute("faultDetails", faultDetails);
+            	request.setAttribute("faultSummary", faultSummary);
+            	
+            	RequestDispatcher rd = request.getRequestDispatcher("/FaultDetails.jsp"); 
+
+        		rd.forward(request, response);
+                //response.sendRedirect("/FaultDetails.jsp"); 
                 
                
             } 
-            else {
-                // fetch the session from request, create new session if session
-                // is not present in the request
-            	 response.sendRedirect("LoginFailure.jsp");
-            }
         } catch (Exception e)
         {
         System.out.println(e);
@@ -96,10 +84,16 @@ System.out.println("I started");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		
 	}
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    // same logic
-    
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 	}
+
 }
