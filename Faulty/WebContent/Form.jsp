@@ -8,13 +8,20 @@
 </head>
 <body>
 	<form action="FaultAdd" method="get">
+		<select name="section">
+			<option value="" disabled="disabled" selected="selected">Which System was Fault found?</option>
+  			<option value="cassandra">Cassandra</option>
+  			<option value="hadoop">Hadoop</option>
+  			<option value="debian">Debian</option>
+		</select>
+		
 		<p>Summary:</p>
 		 <input type="text" name="summary" size="100"><br>
 		<p>Details:<p> 
-		<textarea rows="10" cols="74"></textarea><br><br>
+		<textarea rows="10" cols="74" name="details"></textarea><br><br>
 		
 		
-		<select>
+		<select name="severity">
 			<option value="" disabled="disabled" selected="selected">Severity Of Fault</option>
   			<option value="crash">Crash: Loss of data or absent feature</option>
   			<option value="noWorkAround">Feature broken: No Workaround available</option>

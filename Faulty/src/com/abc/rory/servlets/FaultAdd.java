@@ -37,50 +37,57 @@ public class FaultAdd extends HttpServlet {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs= null;
-
-		//String username = request.getParameter("username");
-		//String password = request.getParameter("password");
+		int sectionId = 0;
 		
-		String stmt = "INSERT into ";
+		HttpSession session = request.getSession(true); 
+		String reporter=session.getAttribute("id").toString();
+		
+		
+		String summary= request.getParameter("summary"); 
+		String details= request.getParameter("details");
+		String section= request.getParameter("section");
+		
+		if(section.equals("cassandra"))
+		{
+			sectionId = 1;
+		}
+		else if(section.equals("hadoop"))
+		{
+			sectionId = 2;
+		}
+		else if(section.equals("debian"))
+		{
+			sectionId = 3;
+		}
+		else
+		{
+			response.sendRedirect("Form.jsp");
+		}
+		
+		
+		int reporterId= Integer.parseInt(reporter); 
+		//int sectionId = Integer.parseInt(section);
+		String severity= request.getParameter("severity"); 
+		
+		String stmt= "INSERT INTO fault (summary, details, author_idauthor, section_idsection, severity) VALUES (?,?,?,?,?)";
     	
     	
         try {
             Class.forName("com.mysql.jdbc.Driver");
         	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Faultdb","root","Cl1m8t3;");
-            //Statement stmt = con.createStatement();
-            ps = con.prepareStatement(stmt);
-        	ps.setString(1, username);
-        	ps.setString(2, password);
-        	//ps.getString(3, id);
-        	
-            rs=ps.executeQuery();
             
-            if (rs.next()) {
-                // redirect to error page
-            	HttpSession session = request.getSession(true); 
-                session.setAttribute("username", rs.getString("name"));
-                session.setAttribute("id", rs.getInt("idauthor"));
-                String perms = rs.getString("permission");
-               
-                
-                if(perms.equals("admin"))
-    			{
-    				System.out.println("You Have all the permissions");
-    			}
-    			else
-    			{
-    				System.out.println("nah");
-    			}
-                
-                response.sendRedirect("/Faulty/Faults"); 
-                
-               
-            } 
-            else {
-                // fetch the session from request, create new session if session
-                // is not present in the request
-            	 response.sendRedirect("LoginFailure.jsp");
-            }
+            ps = con.prepareStatement(stmt);
+        	ps.setString(1, summary);
+        	ps.setString(2, details);
+        	ps.setInt(3, reporterId);
+        	ps.setInt(4, sectionId);
+        	ps.setString(5, severity);
+        	
+            ps.executeUpdate();
+            
+            response.sendRedirect("/Faulty/Faults"); 
+            
+            
         } catch (Exception e)
         {
         System.out.println(e);
@@ -92,6 +99,11 @@ public class FaultAdd extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void elseIf() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
