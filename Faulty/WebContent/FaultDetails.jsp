@@ -11,7 +11,18 @@
 <body>
 	<h1>Full Fault Details</h1>
 	
-     <p><%=request.getAttribute("faultSummary")%> <%=request.getAttribute("faultDetails") %> </p>
+	
+	<% 
+	String summary = request.getAttribute("faultSummary").toString();
+	String details = request.getAttribute("faultDetails").toString();
+	
+	if(summary.equals(null)|| details.equals(null))
+	{
+		%> <p> This Person Has Reported No Faults. </p> <% 
+	}
+	
+		 %>
+     <p><%=summary%> <%=details %> </p>
 	  
 </body>
 </html>

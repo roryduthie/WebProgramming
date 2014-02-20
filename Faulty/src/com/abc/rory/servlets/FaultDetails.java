@@ -1,6 +1,7 @@
 package com.abc.rory.servlets;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,12 +16,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+
+
+
 /**
  * Servlet implementation class FaultDetails
  */
-@WebServlet("/FaultDetails")
+@WebServlet({"/FaultDetails", "/FaultDetails/*"})
 public class FaultDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -28,7 +34,16 @@ public class FaultDetails extends HttpServlet {
     public FaultDetails() {
         super();
         // TODO Auto-generated constructor stub
+        
+       
     }
+    
+  
+    
+    
+   
+    
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,6 +54,9 @@ public class FaultDetails extends HttpServlet {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs= null;
+		
+		
+		
 
 		String faultId = request.getParameter("faultId");
 		

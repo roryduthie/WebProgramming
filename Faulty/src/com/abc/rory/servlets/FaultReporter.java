@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AdminSelect
+ * Servlet implementation class FaultReporter
  */
-@WebServlet("/AdminSelect")
-public class AdminSelect extends HttpServlet {
+@WebServlet({"/FaultReporter", "/FaultReporter/*"})
+public class FaultReporter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminSelect() {
+    public FaultReporter() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,35 +37,39 @@ public class AdminSelect extends HttpServlet {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs= null;
+		
+		
+		
 
+		String idauthor = request.getParameter("idauthor");
 		
-		
-		String stmt = "SELECT * FROM author WHERE permission!=?";
-		LinkedList<String> names = new LinkedList<String>();
+		String stmt = "SELECT * FROM fault WHERE author_idauthor=?";
+    	
     	
         try {
             Class.forName("com.mysql.jdbc.Driver");
         	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Faultdb","root","Cl1m8t3;");
             //Statement stmt = con.createStatement();
             ps = con.prepareStatement(stmt);
-        	ps.setString(1, "admin");
+        	ps.setString(1, idauthor);
         	
         	
         	
         	
             rs=ps.executeQuery();
             
-           while (rs.next()) {
+            if (rs.next()) {
                 // redirect to error page
-            	String username = rs.getString("name");
+            	String faultDetails = rs.getString("details");
+            	String faultSummary = rs.getString("summary");
+                
             	
+            	request.setAttribute("faultDetails", faultDetails);
+            	request.setAttribute("faultSummary", faultSummary);
             	
-            	
-            	names.add(username);
-            	
-            	
+            	RequestDispatcher rd = request.getRequestDispatcher("/FaultDetails.jsp"); 
 
-        		
+        		rd.forward(request, response);
                 //response.sendRedirect("/FaultDetails.jsp"); 
                 
                
@@ -82,12 +85,7 @@ public class AdminSelect extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-        
-        request.setAttribute("names", names); //Set a bean with the list in it
-		RequestDispatcher rd = request.getRequestDispatcher("/MakeAdmin.jsp"); 
-
-		rd.forward(request, response);
+		
 	}
 
 	/**
