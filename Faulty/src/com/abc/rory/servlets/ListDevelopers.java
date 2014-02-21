@@ -46,6 +46,7 @@ public class ListDevelopers extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 		DButils db = new DButils();
+		db.createSchema();
         _ds=db.assemble(config);
 	}
 	/**

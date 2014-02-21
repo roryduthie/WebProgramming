@@ -1,6 +1,7 @@
 package com.abc.rory.lib;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -12,6 +13,8 @@ import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.sql.DataSource;
+
+import com.mysql.jdbc.Statement;
 
 
 
@@ -41,7 +44,7 @@ public class DButils {
 	 public DataSource assemble(ServletConfig config) throws ServletException {
 		DataSource _ds = null;
 		String dataSourceName = config.getInitParameter("data-source");
-		System.out.println("Data Source Parameter" + dataSourceName);
+		System.out.println("Data Source Parameter " + dataSourceName);
 		if (dataSourceName == null)
 			throw new ServletException("data-source must be specified");
 		Context envContext = null;
@@ -80,7 +83,7 @@ public class DButils {
 			return;
 		}
 		String sqlQuery = "CREATE TABLE IF NOT EXISTS `author` ("
-				+ "`idauthor` INT NOT NULL AUTO_INCREMENT," + "`name` VARCHAR(45) NULL,"
+				+ "`idauthor` INT NOT NULL AUTO_INCREMENT," + "`name` VARCHAR(45) NULL," + "`passwrd` VARCHAR(60) NULL," + "`permission` VARCHAR(60) NULL," + "`section` INT(20) NULL,"
 				+ "PRIMARY KEY (`idauthor`))" + "ENGINE = InnoDB;";
 		try {
 			pmst = Conn.prepareStatement(sqlQuery);
@@ -105,6 +108,7 @@ public class DButils {
 				+ "`details` VARCHAR(100) NULL,"
 				+ "`author_idauthor` INT NOT NULL,"
 				+ "`section_idsection` INT NOT NULL,"
+				+ "`severity` VARCHAR(60) NULL,"
 				+ "PRIMARY KEY (`idfault`),"
 				+ "INDEX `fk_fault_author_idx` (`author_idauthor` ASC),"
 				+ "INDEX `fk_fault_section1_idx` (`section_idsection` ASC),"
@@ -132,7 +136,15 @@ public class DButils {
 			    int rows = rs.getInt(1);
 			    System.out.println("Number of Rows " + rows);
 			    if (rows==0){
-			    	sqlQuery="INSERT INTO `author` (`name`) VALUES ('Andy'),('Tracey'),('Tom'),('Bill');";
+			    	sqlQuery="INSERT INTO `author` (`name`,`passwrd`,`permission`,`section`) VALUES ('andy','andy1','admin','1'), ('tracey','tracey1','reporter','0');";
+					try {
+						pmst = Conn.prepareStatement(sqlQuery);
+						pmst.executeUpdate();
+					} catch (Exception ex) {
+						System.out.println("Can not insert names in authors "+ex);
+						return;
+					}
+					sqlQuery="INSERT INTO `author` (`name`,`passwrd`,`permission`,`section`) VALUES ('bill','bill1','developer','1');";
 					try {
 						pmst = Conn.prepareStatement(sqlQuery);
 						pmst.executeUpdate();
@@ -148,7 +160,7 @@ public class DButils {
 						System.out.println("Can not insert names in sections "+ex);
 						return;	
 					}
-					sqlQuery="INSERT INTO `fault` (`summary`,`details`,`author_idauthor`,`section_idsection`) VALUES ('Startup fails on a pi','Because the number of processors returned is zero startup fails','1','1');";
+					sqlQuery="INSERT INTO `fault` (`summary`,`details`,`author_idauthor`,`section_idsection`,`severity`) VALUES ('Startup fails on a pi','Because the number of processors returned is zero startup fails','1','1','Feature Works: Could be improved');";
 					try {
 						pmst = Conn.prepareStatement(sqlQuery);
 						pmst.executeUpdate();
@@ -166,6 +178,29 @@ public class DButils {
 
 
  
+
+	}
+
+	public void createSchema(){
+		String url = "jdbc:mysql://localhost";
+		Connection conn=null;
+		try {
+		   Class.forName ("com.mysql.jdbc.Driver").newInstance ();
+		   conn = DriverManager.getConnection (url, "root", "Cl1m8t3;");
+
+		}catch (Exception et){
+			System.out.println("Can't get conenction to create schema "+et);
+			return;
+		}
+		String sqlcreateSchema="Create database if not exists faultdb ;";
+		try{
+			java.sql.Statement statement=conn.createStatement();
+			statement.execute(sqlcreateSchema);
+			conn.close();
+		}catch (Exception et){
+			System.out.println("Can not create schema ");
+			return;
+		}
 
 	}
 }

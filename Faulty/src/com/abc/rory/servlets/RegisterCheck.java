@@ -7,19 +7,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
+
+import com.abc.rory.lib.DButils;
 
 /**
  * Servlet implementation class RegisterCheck
  */
-@WebServlet("/RegisterCheck")
+@WebServlet(
+		urlPatterns = { 
+				"/RegisterCheck" 			
+		}, 
+		initParams = { 
+				@WebInitParam(name = "data-source", value = "jdbc/Faultdb")
+		})
 public class RegisterCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private DataSource _ds = null;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -28,7 +40,14 @@ public class RegisterCheck extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
+    
+    public void init(ServletConfig config) throws ServletException {
+  		// TODO Auto-generated method stub
+  		DButils db = new DButils();
+  		db.createSchema();
+          _ds=db.assemble(config);
+  	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
