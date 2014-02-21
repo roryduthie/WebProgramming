@@ -7,6 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1>Admin Homepage</h1>
+	<a href="/Faulty/Faults"> List Faults</a>
+	<a href="Form.jsp"> Add A Fault</a><br><br>
+	<a href="SelectFaults">Delete Fault</a><br><br>
+	<a href="SelectUpdate">Update Fault</a><br><br>
+	<a href="Logout.jsp">Logout</a><br><br>
+	<a href="AdminSelect">Make Admin</a><br><br>
+	<a href="SelectUser">Delete User</a><br><br>
+		
+		<a href="ListReporter"> List Reporters</a><br><br>
+		
+		<a href="ListDevelopers"> List Developers</a><br><br>
+		
+		<a href="ListAdmin"> List Admin</a><br><br>
 </body>
 </html>

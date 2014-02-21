@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/LoginCheck")
 public class LoginCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	String perms;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -44,6 +45,7 @@ System.out.println("I started");
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		String section = null;
 		
 		String stmt = "SELECT * FROM author WHERE name=? and passwrd=?";
     	
@@ -61,28 +63,24 @@ System.out.println("I started");
             
             if (rs.next()) {
                 // redirect to error page
+            	
+            	
+            	section = rs.getString("section");
+            	if(section == null)
+            	{
+            		section = "0";
+            	}
+            	
             	HttpSession session = request.getSession(true); 
                 session.setAttribute("username", rs.getString("name"));
                 session.setAttribute("id", rs.getInt("idauthor"));
-                session.setAttribute("section", rs.getString("section"));
-                String perms = rs.getString("permission");
+                session.setAttribute("section", section);
+                perms = rs.getString("permission");
                
                 
-                if(perms.equals("admin"))
-    			{
-    				System.out.println("You Have all the permissions");
-    				response.sendRedirect("/Faulty/Faults"); 
-    			}
-                if(perms.equals("reporter"))
-                {
-                	
-                }
-    			else
-    			{
-    				System.out.println("nah");
-    			}
+               
                 
-                response.sendRedirect("/Faulty/Faults"); 
+                //response.sendRedirect("/Faulty/Faults"); 
                 
                
             } 
@@ -101,6 +99,31 @@ System.out.println("I started");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+        
+        if(perms.equals("admin"))
+		{
+			System.out.println("You Have all the permissions");
+			response.sendRedirect("AdminHome.jsp");
+			return;
+		}
+        
+        if(perms.equals("developer"))
+		{
+			System.out.println("You Have developer permissions");
+			response.sendRedirect("DeveloperHome.jsp");
+			return;
+		}
+        if(perms.equals("reporter"))
+		{
+			System.out.println("You Have Reporter permissions");
+			response.sendRedirect("ReporterHome.jsp");
+			return;
+		}
+		else
+		{
+			System.out.println("nah");
+			response.sendRedirect("/Faulty/Faults"); 
 		}
 	}
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
