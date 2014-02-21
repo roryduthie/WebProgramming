@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.abc.rory.stores.FaultsStore;
 
 /**
  * Servlet implementation class FaultReporter
@@ -45,6 +48,8 @@ public class FaultReporter extends HttpServlet {
 		
 		String stmt = "SELECT * FROM fault WHERE author_idauthor=?";
     	
+		LinkedList<FaultsStore> names = new LinkedList<FaultsStore>();
+		FaultsStore fs = new FaultsStore();
     	
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -58,18 +63,20 @@ public class FaultReporter extends HttpServlet {
         	
             rs=ps.executeQuery();
             
-            if (rs.next()) {
+            while(rs.next()) {
                 // redirect to error page
             	String faultDetails = rs.getString("details");
             	String faultSummary = rs.getString("summary");
                 
+            	fs.setFaultDetails(faultDetails);
+            	fs.setFaultSummary(faultSummary);
             	
-            	request.setAttribute("faultDetails", faultDetails);
-            	request.setAttribute("faultSummary", faultSummary);
+            	names.add(fs);
             	
-            	RequestDispatcher rd = request.getRequestDispatcher("/FaultDetails.jsp"); 
-
-        		rd.forward(request, response);
+            	request.setAttribute("faults", names);
+            	
+            	
+            	
                 //response.sendRedirect("/FaultDetails.jsp"); 
                 
                
@@ -85,6 +92,10 @@ public class FaultReporter extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/FaultDetails.jsp"); 
+
+		rd.forward(request, response);
 		
 	}
 

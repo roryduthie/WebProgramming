@@ -6,9 +6,9 @@ import javax.sql.DataSource;
 import java.sql.*;
 
 import com.abc.rory.stores.*;
-public class DeveloperModel {
+public class AdminModel {
 	private DataSource _ds = null;
-	public DeveloperModel(){
+	public AdminModel(){
 
 	}
 
@@ -17,8 +17,8 @@ public class DeveloperModel {
 		System.out.println("Set Data Source in Model"+_ds.toString());
 	}
 
-    public LinkedList<UserStore> getDevelopers(){
-		LinkedList<UserStore> p = new LinkedList<UserStore>();
+    public LinkedList<UserStore> getAdmin(){
+		LinkedList<UserStore> psl = new LinkedList<UserStore>();
 		Connection Conn;
 		UserStore ps = null;
 		ResultSet rs = null;
@@ -32,7 +32,7 @@ public class DeveloperModel {
 
 		//PreparedStatement pmst = null;
 		Statement stmt = null;
-		String sqlQuery = "select name, section from author where permission='developer'";
+		String sqlQuery = "select * from author where permission='admin'";
 		
 		System.out.println("User Query " + sqlQuery);
 		try {
@@ -61,9 +61,10 @@ public class DeveloperModel {
 				System.out.println("Getting RS");
 				ps = new UserStore();
 				ps.setUsername(rs.getString("name"));
+				ps.setUserId(rs.getString("idauthor"));
 				ps.setSection(rs.getString("section"));
 				
-				p.add(ps);
+				psl.add(ps);
 			}
 		} catch (Exception ex) {
 			System.out.println("Opps, error in query " + ex);
@@ -76,7 +77,7 @@ public class DeveloperModel {
 		} catch (Exception ex) {
 			return null;
 		}
-		return p;
+		return psl;
 
 	}
 }

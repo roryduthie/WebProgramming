@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="java.util.*" %>
-    <%@ page import="com.abc.rory.stores.*" %>
+  <%@ page import="java.util.*" %>   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,34 +9,41 @@
 </head>
 <body>
 
-	<%
-		List<UserStore> names = (List<UserStore>)request.getAttribute("develops");
+
+		<%
+		List<String> names = (List<String>)request.getAttribute("names");
 	
 		if(names==null)
 		{
 			%> <p>No Names Found </p> <%
 		}else{
 			
-			Iterator<UserStore> iterator;
+			Iterator<String> iterator;
 			
 			iterator=names.iterator();
-			
+			%> 
+			<form action="DeleteUser" method="get">
+				<select name="usernames"> 
+				<option value="" disabled="disabled" selected="selected">Select A User To Delete?</option>
+			<% 
 			
 			while(iterator.hasNext())
 			{
-				UserStore md = (UserStore)iterator.next();
+				String md = (String)iterator.next();
 				
 			 %> 
 				
 				
-				<a href="FaultDeveloper?section=<%=md.getSection()%>" ><%=md.getUsername()%></a><br/>
+				<option value="<%=md%>" > <%=md %> </option>
 				<% 
 			}
-				
+				%> </select> <%
 			
 		}
 	%>
 	
-
+			<input type="submit" name="submit" value="Delete User">
+			
+		</form>
 </body>
 </html>

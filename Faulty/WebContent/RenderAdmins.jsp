@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="java.util.*" %>
-    <%@ page import="com.abc.rory.stores.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.abc.rory.stores.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,9 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	
 	<%
-		List<UserStore> names = (List<UserStore>)request.getAttribute("develops");
+		List<UserStore> names = (List<UserStore>)request.getAttribute("Users");
 	
 		if(names==null)
 		{
@@ -30,7 +30,7 @@
 			 %> 
 				
 				
-				<a href="FaultDeveloper?section=<%=md.getSection()%>" ><%=md.getUsername()%></a><br/>
+				<a href="FaultAdmin?idsection=<%=md.getSection()%>" ><%=md.getUsername()%></a><br/>
 				<% 
 			}
 				
@@ -38,6 +38,7 @@
 		}
 	%>
 	
-
+	
+	
 </body>
 </html>

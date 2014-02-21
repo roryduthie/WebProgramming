@@ -1,7 +1,6 @@
 package com.abc.rory.servlets;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,85 +14,59 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.abc.rory.stores.FaultsStore;
-
-
-
-
 
 /**
- * Servlet implementation class FaultDetails
+ * Servlet implementation class AdminSelect
  */
-@WebServlet({"/FaultDetails", "/FaultDetails/*"})
-public class FaultDetails extends HttpServlet {
+@WebServlet("/SelectUser")
+public class SelectUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FaultDetails() {
+    public SelectUser() {
         super();
         // TODO Auto-generated constructor stub
-        
-       
     }
-    
-  
-    
-    
-   
-    
-    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs= null;
-		
-		
-		
 
-		String faultId = request.getParameter("faultId");
 		
-		String stmt = "SELECT * FROM fault WHERE idfault=?";
 		
-		LinkedList<FaultsStore> names = new LinkedList<FaultsStore>();
-		FaultsStore fs = new FaultsStore();
-    	
+		String stmt = "SELECT * FROM author";
+		LinkedList<String> names = new LinkedList<String>();
     	
         try {
             Class.forName("com.mysql.jdbc.Driver");
         	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Faultdb","root","Cl1m8t3;");
             //Statement stmt = con.createStatement();
             ps = con.prepareStatement(stmt);
-        	ps.setString(1, faultId);
+        	//ps.setString(1, "admin");
         	
-        	System.out.println(faultId);
+        	
         	
         	
             rs=ps.executeQuery();
             
-            while (rs.next()) {
+           while (rs.next()) {
                 // redirect to error page
-            	String faultDetails = rs.getString("details");
-            	String faultSummary = rs.getString("summary");
-                
-            	fs.setFaultDetails(faultDetails);
-            	fs.setFaultSummary(faultSummary);
-            	
-            	names.add(fs);
-            	
-            	request.setAttribute("faults", names);
+            	String username = rs.getString("name");
             	
             	
+            	
+            	names.add(username);
+            	
+            	
+
+        		
                 //response.sendRedirect("/FaultDetails.jsp"); 
                 
                
@@ -109,9 +82,10 @@ public class FaultDetails extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-        RequestDispatcher rd = request.getRequestDispatcher("/FaultDetails.jsp"); 
+        
+        
+        request.setAttribute("names", names); //Set a bean with the list in it
+		RequestDispatcher rd = request.getRequestDispatcher("/DeleteUser.jsp"); 
 
 		rd.forward(request, response);
 	}
@@ -124,3 +98,4 @@ public class FaultDetails extends HttpServlet {
 	}
 
 }
+

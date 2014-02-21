@@ -7,13 +7,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Fault Details</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>Full Fault Details</h1>
 	
-	<% 
-	List<FaultsStore> faults = (List<FaultsStore>)request.getAttribute("faults");
+	
+	
+		<% 
+	List<FaultsStore> faults = (List<FaultsStore>)request.getAttribute("list");
 	
 		if(faults==null)
 		{
@@ -29,7 +30,7 @@
 			{
 				FaultsStore md = (FaultsStore)iterator.next();
 				
-				
+				System.out.println(md.getFaultid());
 				
 			 %> 
 				
@@ -43,6 +44,7 @@
 			
 		}
 	%>
-	  
+	
+	
 </body>
 </html>

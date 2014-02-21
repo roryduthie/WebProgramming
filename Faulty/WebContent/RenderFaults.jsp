@@ -14,7 +14,7 @@
 <h1>Faults</h1>
 <%
 String a=session.getAttribute("username").toString();
-String b=session.getAttribute("id").toString();
+String b=session.getAttribute("section").toString();
 out.println("Hello  "+a);
 
 
@@ -42,14 +42,20 @@ while (iterator.hasNext()){
 						}
 }
 %>
-		<a href="Form.jsp"> Add A Fault</a>
+		<a href="Form.jsp"> Add A Fault</a><br><br>
+		<a href="SelectFaults">Delete Fault</a><br><br>
+		<a href="SelectUpdate">Update Fault</a><br><br>
 		<a href="Logout.jsp">Logout</a>
 		<br><br>
 		<a href="AdminSelect">Make Admin</a><br><br>
 		
+		<a href="SelectUser">Delete User</a><br><br>
+		
 		<a href="ListReporter"> List Reporters</a><br><br>
 		
 		<a href="ListDevelopers"> List Developers</a><br><br>
+		
+		<a href="ListAdmin"> List Admin</a><br><br>
 		
 		
 </body>

@@ -3,6 +3,7 @@ package com.abc.rory.stores;
 public class UserStore {
 	private String ReportUsername;
 	private String userId;
+	private String section;
 	
 	public UserStore(){
 
@@ -16,6 +17,10 @@ public class UserStore {
 		userId=id;
 	}
 	
+	public void setSection(String sect){
+		section = sect;
+	}
+	
 
 	public String getUsername(){
 		return ReportUsername;
@@ -23,6 +28,10 @@ public class UserStore {
 
 	public String getId(){
 		return userId;
+	}
+	
+	public String getSection(){
+		return section;
 	}
 	
 

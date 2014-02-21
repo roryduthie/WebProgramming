@@ -1,72 +1,45 @@
 package com.abc.rory.servlets;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.abc.rory.stores.FaultsStore;
-
-
-
-
 
 /**
- * Servlet implementation class FaultDetails
+ * Servlet implementation class DeleteUser
  */
-@WebServlet({"/FaultDetails", "/FaultDetails/*"})
-public class FaultDetails extends HttpServlet {
+@WebServlet("/DeleteUser")
+public class DeleteUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FaultDetails() {
+    public DeleteUser() {
         super();
         // TODO Auto-generated constructor stub
-        
-       
     }
-    
-  
-    
-    
-   
-    
-    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs= null;
-		
-		
-		
 
-		String faultId = request.getParameter("faultId");
+		String username = request.getParameter("usernames");
 		
-		String stmt = "SELECT * FROM fault WHERE idfault=?";
-		
-		LinkedList<FaultsStore> names = new LinkedList<FaultsStore>();
-		FaultsStore fs = new FaultsStore();
+		String stmt = "DELETE FROM author WHERE name=?";
     	
     	
         try {
@@ -74,30 +47,15 @@ public class FaultDetails extends HttpServlet {
         	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Faultdb","root","Cl1m8t3;");
             //Statement stmt = con.createStatement();
             ps = con.prepareStatement(stmt);
-        	ps.setString(1, faultId);
-        	
-        	System.out.println(faultId);
+        	ps.setString(1, username);
         	
         	
-            rs=ps.executeQuery();
-            
-            while (rs.next()) {
-                // redirect to error page
-            	String faultDetails = rs.getString("details");
-            	String faultSummary = rs.getString("summary");
-                
-            	fs.setFaultDetails(faultDetails);
-            	fs.setFaultSummary(faultSummary);
-            	
-            	names.add(fs);
-            	
-            	request.setAttribute("faults", names);
-            	
-            	
-                //response.sendRedirect("/FaultDetails.jsp"); 
+        	
+        	
+        	ps.executeUpdate();
                 
                
-            } 
+             
         } catch (Exception e)
         {
         System.out.println(e);
@@ -109,11 +67,9 @@ public class FaultDetails extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-        RequestDispatcher rd = request.getRequestDispatcher("/FaultDetails.jsp"); 
-
-		rd.forward(request, response);
+        
+        
+        response.sendRedirect("/Faulty/Faults");
 	}
 
 	/**

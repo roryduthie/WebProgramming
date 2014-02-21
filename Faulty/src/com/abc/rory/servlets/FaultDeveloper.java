@@ -1,7 +1,6 @@
 package com.abc.rory.servlets;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,38 +14,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.abc.rory.stores.FaultsStore;
 
 
-
-
-
 /**
- * Servlet implementation class FaultDetails
+ * Servlet implementation class FaultDeveloper
  */
-@WebServlet({"/FaultDetails", "/FaultDetails/*"})
-public class FaultDetails extends HttpServlet {
+@WebServlet("/FaultDeveloper")
+public class FaultDeveloper extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FaultDetails() {
+    public FaultDeveloper() {
         super();
         // TODO Auto-generated constructor stub
-        
-       
     }
-    
-  
-    
-    
-   
-    
-    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -61,59 +46,61 @@ public class FaultDetails extends HttpServlet {
 		
 		
 
-		String faultId = request.getParameter("faultId");
+		String section = request.getParameter("section").toString();
 		
-		String stmt = "SELECT * FROM fault WHERE idfault=?";
+		String stmt = "SELECT * FROM fault WHERE section_idsection=?";
+		LinkedList<FaultsStore> faults = new LinkedList<FaultsStore>();
+		FaultsStore fs = null;
 		
-		LinkedList<FaultsStore> names = new LinkedList<FaultsStore>();
-		FaultsStore fs = new FaultsStore();
-    	
     	
         try {
             Class.forName("com.mysql.jdbc.Driver");
         	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Faultdb","root","Cl1m8t3;");
             //Statement stmt = con.createStatement();
             ps = con.prepareStatement(stmt);
-        	ps.setString(1, faultId);
+        	ps.setString(1, section);
         	
-        	System.out.println(faultId);
-        	
-        	
-            rs=ps.executeQuery();
-            
-            while (rs.next()) {
-                // redirect to error page
-            	String faultDetails = rs.getString("details");
-            	String faultSummary = rs.getString("summary");
+        	 rs=ps.executeQuery();
+             
+             while(rs.next()) {
+                 // redirect to error page
+            	fs =  new FaultsStore();
+             	String faultDetails = rs.getString("details");
+             	String faultSummary = rs.getString("summary");
+             	String faultId = rs.getString("idfault");
+                 
+             	fs.setFaultDetails(faultDetails);
+             	fs.setFaultSummary(faultSummary);
+             	
+             	fs.setFaultid(faultId);
+             	
+             	
+             	
+             	faults.add(fs);
+             	
+             	
+             	
+             	
+             	
+                 //response.sendRedirect("/FaultDetails.jsp"); 
+                 
                 
-            	fs.setFaultDetails(faultDetails);
-            	fs.setFaultSummary(faultSummary);
-            	
-            	names.add(fs);
-            	
-            	request.setAttribute("faults", names);
-            	
-            	
-                //response.sendRedirect("/FaultDetails.jsp"); 
-                
-               
-            } 
-        } catch (Exception e)
-        {
-        System.out.println(e);
-        }
-        
-        try {
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-        RequestDispatcher rd = request.getRequestDispatcher("/FaultDetails.jsp"); 
+             } 
+         } catch (Exception e)
+         {
+         System.out.println(e);
+         }
+         
+         try {
+ 			con.close();
+ 		} catch (SQLException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+         request.setAttribute("list", faults);
+         RequestDispatcher rd = request.getRequestDispatcher("/RenderDevloperFaults.jsp"); 
 
-		rd.forward(request, response);
+ 		rd.forward(request, response);
 	}
 
 	/**
