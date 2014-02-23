@@ -192,7 +192,7 @@ public class DButils {
 			System.out.println("Can't get conenction to create schema "+et);
 			return;
 		}
-		String sqlcreateSchema="Create database if not exists faultdb ;";
+		String sqlcreateSchema="Create database if not exists faultdb;";
 		try{
 			java.sql.Statement statement=conn.createStatement();
 			statement.execute(sqlcreateSchema);

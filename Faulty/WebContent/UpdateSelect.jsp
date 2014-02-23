@@ -5,9 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<jsp:include page="header.jsp" />
+ <link rel="stylesheet" type="text/css" href="StyleSheet.css">
 <title>Insert title here</title>
 </head>
 <body>
+	<br><br>
 	<%
 		
 		List<String> faults = (List<String>)request.getAttribute("faults");
@@ -74,5 +77,21 @@
 		<br><br>
 		<input type="submit" name="submit" value="Update Fault">
 	</form>
+	<br><br>
+	<% 
+	if(session.getAttribute("permission").toString().equals("admin"))
+	{
+		%> <a href="AdminHome.jsp"> Home </a> <% 
+	}
+	if(session.getAttribute("permission").toString().equals("developer"))
+	{
+		%> <a href="DeveloperHome.jsp"> Home </a> <% 
+	}
+	if(session.getAttribute("permission").toString().equals("reporter"))
+	{
+		%> <a href="ReporterHome.jsp"> Home </a> <% 
+	}
+
+%>
 </body>
 </html>

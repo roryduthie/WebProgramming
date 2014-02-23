@@ -1,0 +1,51 @@
+
+ul
+{
+text-align:center;
+
+list-style-type:none;
+margin:0;
+padding:0;
+overflow:hidden;
+}
+li
+{
+
+display:inline-block;
+
+text-decoration: none;
+}
+a
+{
+font-weight:bold;
+
+display:inline-block;
+background-color:#82CAFF;
+text-decoration:none; 
+font-family:"courier new";
+text-align:center;
+padding:10px;
+text-transform:uppercase;
+color:white;
+margin-bottom: 5px;
+
+}
+a:hover
+{ 
+background-color:yellow;
+font:
+}
+#Username
+{
+text-align:center;
+padding:20px;
+} 
+h1
+{
+text-align:center;
+
+}
+head
+{
+color: black;	
+}

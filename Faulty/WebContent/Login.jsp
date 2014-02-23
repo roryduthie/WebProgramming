@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<jsp:include page="header.jsp" />
+ <link rel="stylesheet" type="text/css" href="StyleSheet.css">
 <title>Insert title here</title>
 </head>
 <body>
+<br><br>
 	<form action="LoginCheck" method="get">
     <p>Username:</p>
     <input type="text" name="username" align="top"><br>

@@ -70,7 +70,7 @@ System.out.println("I started");
     	
         try {
             Class.forName("com.mysql.jdbc.Driver");
-        	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Faultdb","root","Cl1m8t3;");
+        	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/faultdb","root","Cl1m8t3;");
             //Statement stmt = con.createStatement();
             ps = con.prepareStatement(stmt);
         	ps.setString(1, username);
@@ -93,7 +93,10 @@ System.out.println("I started");
                 session.setAttribute("username", rs.getString("name"));
                 session.setAttribute("id", rs.getInt("idauthor"));
                 session.setAttribute("section", section);
+                
                 perms = rs.getString("permission");
+                session.setAttribute("permission", perms);
+                
                
                 
                

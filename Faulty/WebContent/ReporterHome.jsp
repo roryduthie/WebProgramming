@@ -4,21 +4,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<jsp:include page="header.jsp" />
+ <link rel="stylesheet" type="text/css" href="StyleSheet.css">
+<title>Reporter Home</title>
 </head>
 <body>
-		<h1>Reporter Homepage</h1><br><br>
+		<h1>Reporter Homepage</h1>
 		
-		<a href="/Faulty/Faults"> List Faults</a><br><br>
+	<div id="Username" >
+	<%
+		String a=session.getAttribute("username").toString();
+		String b=session.getAttribute("section").toString();
+		out.println("Logged In As:  "+a); 
+	%>
+	</div>
 		
-		<a href="Form.jsp"> Add A Fault</a><br><br>
 		
-		<a href="ListDevelopers"> List Developers</a><br><br>
-		
-		<a href="ListAdmin"> List Admin</a><br><br>
-		
-		<a href="SelectUpdate">Update Fault</a><br><br>
-		
-		<a href="Logout.jsp">Logout</a><br><br>
+	<ul id="navigation-bar">
+  		<li><a href="/Faulty/Faults"> List Faults</a></li>
+ 		<li><a href="Form.jsp"> Add A Fault</a></li>
+  		<li><a href="ListAdmin"> List Admin</a></li>
+  		<li><a href="Logout.jsp">Logout</a></li>
+	</ul>
+
 </body>
 </html>

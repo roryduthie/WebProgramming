@@ -6,10 +6,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<jsp:include page="header.jsp" />
+ <link rel="stylesheet" type="text/css" href="StyleSheet.css">
 <title>Insert title here</title>
 </head>
 <body>
-		
+	<br><br>	
 		<%
 		List<UserStore> names = (List<UserStore>)request.getAttribute("Users");
 	
@@ -37,9 +39,24 @@
 			
 		}
 	%>
+	<br><br>
+	<% 
+	if(session.getAttribute("permission").toString().equals("admin"))
+	{
+		%> <a href="AdminHome.jsp"> Home </a> <% 
+	}
+	if(session.getAttribute("permission").toString().equals("developer"))
+	{
+		%> <a href="DeveloperHome.jsp"> Home </a> <% 
+	}
+	if(session.getAttribute("permission").toString().equals("reporter"))
+	{
+		%> <a href="ReporterHome.jsp"> Home </a> <% 
+	}
+
+%>
+			
 	
-			
-			
 		
 </body>
 </html>

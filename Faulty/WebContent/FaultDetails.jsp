@@ -7,10 +7,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<jsp:include page="header.jsp" />
+ <link rel="stylesheet" type="text/css" href="StyleSheet.css">
 <title>Fault Details</title>
 </head>
 <body>
 	<h1>Full Fault Details</h1>
+	
+	<br><br>
 	
 	<% 
 	List<FaultsStore> faults = (List<FaultsStore>)request.getAttribute("faults");
@@ -33,16 +37,41 @@
 				
 			 %> 
 				
+				<table cellpadding="10">
+		
+					<tr>
+						<th> Summary </th>
+						<th> Details </th>
+						<th> Severity </th>
+		
+					</tr>
+					<tr>
+						<td> <%=md.getFaultSummary() %> </td>
+						<td> <%=md.getFaultDetails() %> </td>
+						<td> <%=md.getSeverity() %> </td>
+					</tr>
 				
-				
-				
-				<p> <%=md.getFaultSummary() %>   <%=md.getFaultDetails() %> </p>
-				<% 
+				</table>
+				<br><br>
+	<% 
 			}
 				
 			
 		}
-	%>
-	  
+	
+	if(session.getAttribute("permission").toString().equals("admin"))
+	{
+		%> <a href="AdminHome.jsp"> Home </a> <% 
+	}
+	if(session.getAttribute("permission").toString().equals("developer"))
+	{
+		%> <a href="DeveloperHome.jsp"> Home </a> <% 
+	}
+	if(session.getAttribute("permission").toString().equals("reporter"))
+	{
+		%> <a href="ReporterHome.jsp"> Home </a> <% 
+	}
+
+%>
 </body>
 </html>

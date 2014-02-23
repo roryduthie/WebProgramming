@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<jsp:include page="header.jsp" />
+ <link rel="stylesheet" type="text/css" href="StyleSheet.css">
 <title>Register As Reporter</title>
 </head>
 <body>
+	<br><br>
 		<form action="RegisterCheck" method="get">
 			<p> Email: </p>
 				<input type="text" name="username"><br>
@@ -19,5 +22,6 @@
 		
 		
 		</form>
+		<br><br>
 </body>
 </html>

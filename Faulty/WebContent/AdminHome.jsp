@@ -4,22 +4,35 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<jsp:include page="header.jsp" />
+ <link rel="stylesheet" type="text/css" href="StyleSheet.css">
 <title>Insert title here</title>
 </head>
 <body>
+
 	<h1>Admin Homepage</h1>
-	<a href="/Faulty/Faults"> List Faults</a>
-	<a href="Form.jsp"> Add A Fault</a><br><br>
-	<a href="SelectFaults">Delete Fault</a><br><br>
-	<a href="SelectUpdate">Update Fault</a><br><br>
-	<a href="Logout.jsp">Logout</a><br><br>
-	<a href="AdminSelect">Make Admin</a><br><br>
-	<a href="SelectUser">Delete User</a><br><br>
-		
-		<a href="ListReporter"> List Reporters</a><br><br>
-		
-		<a href="ListDevelopers"> List Developers</a><br><br>
-		
-		<a href="ListAdmin"> List Admin</a><br><br>
+	
+	<div id="Username" ><%
+	String a=session.getAttribute("username").toString();
+	String b=session.getAttribute("section").toString();
+	out.println("Logged In As:  "+a); 
+	%>
+	</div>
+	<br><br>
+	
+	<ul id="navigation-bar">
+  		<li><a href="/Faulty/Faults"> List Faults</a></li>
+ 		<li><a href="Form.jsp"> Add A Fault</a></li>
+  		<li><a href="SelectFaults">Delete Fault</a></li>
+  		<li><a href="SelectUpdate">Update Fault</a></li>
+  		<li><a href="AdminSelect">Make Admin</a></li>
+  		<li><a href="SelectUser">Delete User</a></li>
+  		<li><a href="ListReporter"> List Reporters</a></li>
+  		<li><a href="ListDevelopers"> List Developers</a></li>
+  		<li><a href="ListAdmin"> List Admin</a></li>
+  		<li><a href="Logout.jsp">Logout</a></li>
+	</ul>
+	
+	
 </body>
 </html>

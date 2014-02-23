@@ -53,7 +53,7 @@ public class FaultReporter extends HttpServlet {
     	
         try {
             Class.forName("com.mysql.jdbc.Driver");
-        	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Faultdb","root","Cl1m8t3;");
+        	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/faultdb","root","Cl1m8t3;");
             //Statement stmt = con.createStatement();
             ps = con.prepareStatement(stmt);
         	ps.setString(1, idauthor);

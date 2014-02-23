@@ -5,6 +5,7 @@ public class FaultsStore {
 	private String Faultid;
 	private String FaultSummary;
 	private String FaultDetails;
+	private String Severity;
 	public FaultsStore(){
 
 	}
@@ -20,6 +21,11 @@ public class FaultsStore {
 	public void setFaultDetails(String Details){
 		FaultDetails=Details;
 	}
+	
+	public void setSeverity(String severity)
+	{
+		Severity=severity;
+	}
 
 	public String getFaultid(){
 		return Faultid;
@@ -32,4 +38,10 @@ public class FaultsStore {
 	public String getFaultDetails(){
 		return FaultDetails;
 	}
+	
+	public String getSeverity()
+	{
+		return Severity;
+	}
+	
 }

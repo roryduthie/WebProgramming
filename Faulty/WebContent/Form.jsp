@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<jsp:include page="header.jsp" />
+ <link rel="stylesheet" type="text/css" href="StyleSheet.css">
 <title>Insert title here</title>
 </head>
 <body>
+<br><br>
 	<form action="FaultAdd" method="get">
 		<select name="section">
 			<option value="" disabled="disabled" selected="selected">Which System was Fault found?</option>

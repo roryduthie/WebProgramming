@@ -8,14 +8,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<jsp:include page="header.jsp" />
+ <link rel="stylesheet" type="text/css" href="StyleSheet.css">
 <title>Faults List</title>
 </head>
 <body>
 <h1>Faults</h1>
+
 <%
-String a=session.getAttribute("username").toString();
-String b=session.getAttribute("section").toString();
-out.println("Hello  "+a);
+
 
 
 System.out.println("In render");
@@ -42,20 +43,22 @@ while (iterator.hasNext()){
 						}
 }
 %>
-		<a href="Form.jsp"> Add A Fault</a><br><br>
-		<a href="SelectFaults">Delete Fault</a><br><br>
-		<a href="SelectUpdate">Update Fault</a><br><br>
-		<a href="Logout.jsp">Logout</a>
-		<br><br>
-		<a href="AdminSelect">Make Admin</a><br><br>
-		
-		<a href="SelectUser">Delete User</a><br><br>
-		
-		<a href="ListReporter"> List Reporters</a><br><br>
-		
-		<a href="ListDevelopers"> List Developers</a><br><br>
-		
-		<a href="ListAdmin"> List Admin</a><br><br>
+<br><br>
+<% 
+	if(session.getAttribute("permission").toString().equals("admin"))
+	{
+		%> <a href="AdminHome.jsp"> Home </a> <% 
+	}
+	if(session.getAttribute("permission").toString().equals("developer"))
+	{
+		%> <a href="DeveloperHome.jsp"> Home </a> <% 
+	}
+	if(session.getAttribute("permission").toString().equals("reporter"))
+	{
+		%> <a href="ReporterHome.jsp"> Home </a> <% 
+	}
+
+%>
 		
 		
 </body>

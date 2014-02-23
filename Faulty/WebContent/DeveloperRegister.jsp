@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<jsp:include page="header.jsp" />
+ <link rel="stylesheet" type="text/css" href="StyleSheet.css">
 <title>Developers Register Here</title>
 </head>
 <body>
+<br><br>
 		<form action="RegisterCheck" method="get">
 			<p> Email: </p>
 				<input type="text" name="username"><br>
@@ -18,5 +21,6 @@
 				<input type="hidden" name="permission" value="developer">
 		
 		</form>
+<br><br>		
 </body>
 </html>
